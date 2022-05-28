@@ -117,7 +117,7 @@ function ToDoTailwind() {
                             </div>
                             <div className="flex items-center justify-between">
                                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                    type="submit">
+                                    type="submit" disabled={todo === ""}>
                                     Create
                                 </button>
                             </div>
@@ -129,7 +129,7 @@ function ToDoTailwind() {
                         {todos.map(todo => (
                             <div className="w-full max-w-sm justify-center" >
                                 {/* onClick={() => handleCheck(todo.id, todo.completed)} */}
-                                <div className={todo.completed ? "bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 mb-4" : "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"}>
+                                <div className={todo.completed ? "bg-gray-400 shadow-md rounded px-8 pt-6 pb-8 mb-4" : "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"}>
                                     <div className="flex justify-between items-center space-x-8">
                                         {/* check box */}
                                         {/* <p>{todo.id}</p> */}
