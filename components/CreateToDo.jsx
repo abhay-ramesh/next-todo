@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Checkbox, List, Button, Typography, Input } from 'antd'
-import mobx from 'mobx'
 
 function ToDo() {
     const [todo, setTodo] = useState("")
