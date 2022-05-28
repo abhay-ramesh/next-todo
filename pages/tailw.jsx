@@ -12,7 +12,7 @@ function ToDoTailwind() {
         setIsLoading(true)
         if (func === "add") {
             // Append new todo to the list
-            setTodos([...todos, { id: id, completed: completed, title: todo }])
+            setTodos([...todos, { completed: completed, title: todo }])
         } else if (func === "check") {
             // Update the todo's completed state
             setTodos(todos.map(todo => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)))
@@ -43,8 +43,9 @@ function ToDoTailwind() {
     // Use antd to create a form to create a new todo
     const handleSubmit = (e) => {
         console.log("submit")
-        console.log("fdgdfg", (todos[todos.length - 1].id))
-        updateTodosState("add", String(Number(todos[todos.length - 1].id) + 1), false, todo)
+        console.log(todos.length)
+        // console.log("fdgdfg", (todos[todos.length].id))
+        updateTodosState("add", "", false, todo)
         e.preventDefault()
         fetch("/api/todo", {
             method: "POST",
