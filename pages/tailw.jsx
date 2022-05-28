@@ -103,7 +103,7 @@ function ToDoTailwind() {
 
     return (
         <div className="w-screen h-screen bg-green-800 flex justify-center">
-            <div className="flex-col mx-auto mt-12 ">
+            <div className="flex-col mt-12 mx-6">
                 <div className="flex justify-center">
                     <div className="w-full max-w-sm">
                         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
