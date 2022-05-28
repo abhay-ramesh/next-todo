@@ -77,7 +77,7 @@ function ToDo() {
                     value={todo}
                     onChange={(e) => setTodo(e.target.value)}
                 />
-                <Button type="primary" htmlType="submit">Add</Button>
+                <Button type="primary" htmlType="submit" disabled={(todo) === ""}>Add</Button>
             </form>
             <List
                 bordered
