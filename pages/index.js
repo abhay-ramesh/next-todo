@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import ToDo from "../components/CreateToDo";
 import styles from "../styles/Home.module.css";
+import ToDoTailwind from "./tailw";
 
 export default function Home() {
   return (
@@ -14,6 +15,10 @@ export default function Home() {
 
       <main>
         <ToDo />
+        {/* <ToDoTailwind /> */}
+        <a className="bg-green-600 rounded-sm px-5 py-3 " href="/tailw">
+          Open With Tailwind and react hooks
+        </a>
       </main>
     </div>
   );
