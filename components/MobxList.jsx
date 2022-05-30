@@ -20,12 +20,12 @@ function MobxList() {
                                         <input className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer"
                                             type="checkbox"
                                             checked={todo.completed}
-                                            onChange={() => store.toggleTodo(todo.ida)}
+                                            onChange={() => store.toggleTodo(todo.id)}
                                         />
                                     </div>
-                                    {/* <p className="text-gray-700 text-sm font-bold">{todo.ida}</p> */}
+                                    {/* <p className="text-gray-700 text-sm font-bold">{todo.id}</p> */}
                                     <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                        onClick={() => store.removeTodo(todo.ida)}>
+                                        onClick={() => store.removeTodo(todo.id)}>
                                         Delete
                                     </button>
                                 </div>
