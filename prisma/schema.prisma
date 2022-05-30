@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://01ww2uwgi351:pscale_pw_01t3dejAV74O6Qc3NpnyxuiH-c2uXqupzR_-wOD1CUo@z11twi4glncg.ap-south-2.psdb.cloud/fabit?sslaccept=strict"
+  url      = env("DATABASE_URL")
 }
 
 // datasource db {
