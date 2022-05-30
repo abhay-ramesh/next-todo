@@ -1,30 +1,16 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
 }
 
-// datasource db {
-//   provider = "sqlite"
-//   url      = "file:./dev.db"
-// }
-
-// model Tasks {
-//   id        Int      @id @default(autoincrement())
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   title     String
-//   completed Boolean
-// }
-
 model Tasks {
-  id        Int      @id
+  ida       Int      @id
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String

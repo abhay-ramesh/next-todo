@@ -7,18 +7,18 @@ function ToDoTailwind() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isUpdating, setIsUpdating] = useState(false)
 
-    const updateTodosState = (func, id, completed, todo) => {
-        console.log(func, id, completed, todo)
+    const updateTodosState = (func, ida, completed, todo) => {
+        console.log(func, ida, completed, todo)
         setIsLoading(true)
         if (func === "add") {
             // Append new todo to the list
             setTodos([...todos, { completed: completed, title: todo }])
         } else if (func === "check") {
             // Update the todo's completed state
-            setTodos(todos.map(todo => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)))
+            setTodos(todos.map(todo => (todo.ida === ida ? { ...todo, completed: !todo.completed } : todo)))
         } else if (func === "delete") {
             // Remove the todo from the list
-            setTodos(todos.filter(todo => todo.id !== id))
+            setTodos(todos.filter(todo => todo.id !== ida))
         }
         setIsLoading(false)
     }
@@ -71,8 +71,8 @@ function ToDoTailwind() {
         // })
     }
 
-    const handleDelete = (id) => {
-        updateTodosState("delete", id)
+    const handleDelete = (ida) => {
+        updateTodosState("delete", ida)
         // setIsUpdating(true)
         fetch(`/api/todo`, {
             method: "DELETE",
@@ -80,22 +80,22 @@ function ToDoTailwind() {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                id: id
+                ida: ida
             })
         })
         // .then(updateList())
     }
 
-    const handleCheck = (id, completed) => {
+    const handleCheck = (ida, completed) => {
         // setIsUpdating(true)
-        updateTodosState("check", id, completed)
+        updateTodosState("check", ida, completed)
         fetch(`/api/todo`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                id: id,
+                id: ida,
                 done: !completed
             })
         })
@@ -141,10 +141,10 @@ function ToDoTailwind() {
                                                 Done
                                             </button> */}
                                             <div className="form-check">
-                                                <input className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer" type="checkbox" checked={todo.completed} onChange={() => handleCheck(todo.id, todo.completed)} />
+                                                <input className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer" type="checkbox" checked={todo.completed} onChange={() => handleCheck(todo.ida, todo.completed)} />
                                             </div>
                                             <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                                onClick={() => handleDelete(todo.id)}>
+                                                onClick={() => handleDelete(todo.ida)}>
                                                 Delete
                                             </button>
                                         </div>

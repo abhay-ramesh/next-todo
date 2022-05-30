@@ -15,12 +15,12 @@ export default async function handler(req, res) {
     const newTodo = await createTodo(body);
     res.status(201).json(newTodo);
   } else if (method === "DELETE") {
-    const { id } = body;
-    await prisma.tasks.delete({ where: { id } });
+    const { ida } = body;
+    await prisma.tasks.delete({ where: { ida } });
     res.status(204).end();
   } else if (method === "PUT") {
-    const { id, done } = body;
-    const updatedTodo = await updateTodo(id, done);
+    const { ida, done } = body;
+    const updatedTodo = await updateTodo(ida, done);
     res.status(200).json(updatedTodo);
   }
 }
@@ -33,6 +33,7 @@ async function getTodos() {
 async function createTodo(todo) {
   const newTodo = await prisma.tasks.create({
     data: {
+      ida: todo.ida,
       title: todo.title,
       completed: false,
     },
@@ -40,9 +41,9 @@ async function createTodo(todo) {
   return newTodo;
 }
 
-async function updateTodo(id, done) {
+async function updateTodo(ida, done) {
   const updatedTodo = await prisma.tasks.update({
-    where: { id },
+    where: { ida },
     data: { completed: done },
   });
   return updatedTodo;
