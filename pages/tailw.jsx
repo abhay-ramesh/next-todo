@@ -18,7 +18,7 @@ function ToDoTailwind() {
             setTodos(todos.map(todo => (todo.ida === ida ? { ...todo, completed: !todo.completed } : todo)))
         } else if (func === "delete") {
             // Remove the todo from the list
-            setTodos(todos.filter(todo => todo.id !== ida))
+            setTodos(todos.filter(todo => todo.ida !== ida))
         }
         setIsLoading(false)
     }

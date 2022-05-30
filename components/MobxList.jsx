@@ -23,7 +23,7 @@ function MobxList() {
                                             onChange={() => store.toggleTodo(todo.ida)}
                                         />
                                     </div>
-                                    <p className="text-gray-700 text-sm font-bold">{todo.ida}</p>
+                                    {/* <p className="text-gray-700 text-sm font-bold">{todo.ida}</p> */}
                                     <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                         onClick={() => store.removeTodo(todo.ida)}>
                                         Delete
