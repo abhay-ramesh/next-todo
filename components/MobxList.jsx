@@ -8,7 +8,10 @@ function MobxList() {
     const [isLoading, setIsLoading] = useState(true)
     useEffect(() => {
         store.loadTodos();
-        setIsLoading(false)
+        // wait half a second to show the loading animation
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 500)
     }, [])
     if (isLoading) {
         return <MobxLoading />
