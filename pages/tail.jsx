@@ -43,9 +43,9 @@ function ToDoTailwind() {
     // Use antd to create a form to create a new todo
     const handleSubmit = (e) => {
         console.log("submit")
-        console.log(todos.length)
+        // console.log(todos.length)
         // console.log("fdgdfg", (todos[todos.length].id))
-        updateTodosState("add", "", false, todo)
+        // updateTodosState("add", "", false, todo)
         e.preventDefault()
         fetch("/api/todo", {
             method: "POST",
@@ -56,24 +56,24 @@ function ToDoTailwind() {
                 title: todo
             })
         })
+            // .then(res => res.json())
+            // .then(data => {
+            //     setTodo("")
+            //     console.log(data)
+            //     updateList()
+            // })
             .then(res => res.json())
             .then(data => {
+                setTodos([...todos, data])
                 setTodo("")
                 console.log(data)
                 updateList()
             })
-        // .then(res => res.json())
-        // .then(data => {
-        //     setTodos([...todos, data])
-        //     setTodo("")
-        //     console.log(data)
-        //     updateList()
-        // })
     }
 
     const handleDelete = (id) => {
-        updateTodosState("delete", id)
-        // setIsUpdating(true)
+        // updateTodosState("delete", id)
+        setIsUpdating(true)
         fetch(`/api/todo`, {
             method: "DELETE",
             headers: {
@@ -83,12 +83,11 @@ function ToDoTailwind() {
                 id: id
             })
         })
-        // .then(updateList())
+            .then(updateList())
     }
 
     const handleCheck = (id, completed) => {
-        // setIsUpdating(true)
-        updateTodosState("check", id, completed)
+        setIsUpdating(true)
         fetch(`/api/todo`, {
             method: "PUT",
             headers: {
@@ -99,11 +98,11 @@ function ToDoTailwind() {
                 done: !completed
             })
         })
-        // .then(updateList())
+            .then(updateList())
     }
 
     return (
-        <div className="w-screen min-h-screen bg-green-800 flex justify-center">
+        <div className="w-screen h-screen bg-green-800 flex justify-center">
             <div className="flex-col mt-12 mx-6">
                 <div className="flex justify-center">
                     <div className="w-full max-w-sm">
@@ -124,7 +123,8 @@ function ToDoTailwind() {
                         </form>
                     </div>
                 </div>
-                {isUpdating ? <div className="text-center"><h1>Loading...</h1></div> :
+                {isUpdating ? <div className="text-center"><svg class="animate-spin h-5 w-5 mr-3 text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2.033 16.01c.
+                            6.627 9.621 11.95 9.621 11.95s-5.303-4.629-5.303-11.95c0-6.627 5.303-11.95 5.303-11.95s-9.621 5.373-9.621 11.95z" /></svg></div> :
                     <div className="flex flex-col justify-center">
                         {todos.map(todo => (
                             <div className="w-full max-w-sm justify-center" >

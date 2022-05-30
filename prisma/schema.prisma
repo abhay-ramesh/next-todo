@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url      = "mysql://01ww2uwgi351:pscale_pw_01t3dejAV74O6Qc3NpnyxuiH-c2uXqupzR_-wOD1CUo@z11twi4glncg.ap-south-2.psdb.cloud/fabit?sslaccept=strict"
 }
 
 // datasource db {
@@ -24,7 +24,7 @@ datasource db {
 // }
 
 model Tasks {
-  id        Int      @id @default(autoincrement())
+  id        Int      @id
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String
