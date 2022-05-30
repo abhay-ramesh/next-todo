@@ -16,7 +16,7 @@ function MobxList() {
     if (isLoading) {
         return <MobxLoading />
     }
-    if (store.todos.length === 0) {
+    if (store.todos.length === 0 && !isLoading) {
         return <MobxNull />
     }
     return (
