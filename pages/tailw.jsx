@@ -12,7 +12,7 @@ function ToDoTailwind() {
         setIsLoading(true)
         if (func === "add") {
             // Append new todo to the list
-            setTodos([...todos, { completed: completed, title: todo }])
+            setTodos([...todos, { id: id, completed: completed, title: todo }])
         } else if (func === "check") {
             // Update the todo's completed state
             setTodos(todos.map(todo => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)))
@@ -45,7 +45,8 @@ function ToDoTailwind() {
         console.log("submit")
         console.log(todos.length)
         // console.log("fdgdfg", (todos[todos.length].id))
-        updateTodosState("add", "", false, todo)
+        const tmp_id = Math.floor(Math.random() * 1000)
+        updateTodosState("add", tmp_id, false, todo)
         e.preventDefault()
         fetch("/api/todo", {
             method: "POST",
@@ -53,6 +54,7 @@ function ToDoTailwind() {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
+                id: tmp_id,
                 title: todo
             })
         })
