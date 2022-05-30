@@ -10,7 +10,7 @@ function mobxTest() {
             <div className="w-full max-w-md">
                 <MobxCreate />
                 <MobxListObserver />
-                <MobxLoadAPI />
+                {/* <MobxLoadAPI /> */}
             </div>
         </div>
     );
