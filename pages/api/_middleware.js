@@ -1,28 +1,37 @@
 // Rate limit: 10 requests per minute (60 seconds)
 // Rate Limit API Middleware
+import { NextMiddleware, NextRequest, NextResponse } from 'next/server'
+import { getCookie, getCookies, setCookies } from 'cookies-next'
 
 export default function middleware(req, res, next) {
-    // Set rate limit headers
-    res.setHeader("X-RateLimit-Limit", "10");
-    res.setHeader("X-RateLimit-Remaining", "9");
-    res.setHeader("X-RateLimit-Reset", "60");
-
-    // Reset rate limit in 60 seconds
-    const reset = new Date(Date.now() + 60 * 1000);
-    res.setHeader("X-RateLimit-Reset", reset.toUTCString());
-
-    if (req.method === "POST") {
-        if (req.headers["x-ratelimit-remaining"] === "0") {
-            if (req.headers["x-ratelimit-reset"] > Date.now()) {
-                res.status(429).send("Rate limit exceeded");
-                return;
-            } else {
-                res.setHeader("X-RateLimit-Remaining", "10");
-                res.setHeader("X-RateLimit-Reset", reset.toUTCString());
-            }
-        }
-        // Update remaining requests
-        res.setHeader("X-RateLimit-Remaining", req.headers["x-ratelimit-remaining"] - 1);
+    // Set rate limit cookie
+    const rateLimitCookie = getCookie(req, 'rateLimit')
+    if (!rateLimitCookie) {
+        setCookies(res, {
+            rateLimit: '10',
+            maxAge: 60,
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+        })
     }
-    next();
+
+    // Check rate limit
+    const rateLimit = getCookie(req, 'rateLimit')
+    if (rateLimit === '0') {
+        res.status(429).end()
+        return
+    }
+
+    // Update rate limit
+    setCookies(res, {
+        rateLimit: (parseInt(rateLimit) - 1).toString(),
+        maxAge: 60,
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+    })
+
+    // Continue
+    next()
 }
