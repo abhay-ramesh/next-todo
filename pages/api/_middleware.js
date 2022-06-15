@@ -8,6 +8,11 @@ export async function middleware(req, res, next) {
         const res = await ipRateLimit(req)
         if (res.status !== 200) return res
 
-        return next()
+        res.headers.set('content-type', 'application/json')
+
+        return new Response(JSON.stringify({ done: true }), {
+            status: 200,
+            headers: res.headers,
+        })
     }
 }
