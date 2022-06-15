@@ -1,18 +1,28 @@
 // Rate limit: 10 requests per minute (60 seconds)
-// Rate Limit API Middleware without redis
+// Rate Limit API Middleware
 
-import { ipRateLimit } from '../../lib/ip-rate-limit'
+export default function middleware(req, res, next) {
+    // Set rate limit headers
+    res.setHeader("X-RateLimit-Limit", "10");
+    res.setHeader("X-RateLimit-Remaining", "9");
+    res.setHeader("X-RateLimit-Reset", "60");
 
-export async function middleware(req, res, next) {
-    if (req.nextUrl.pathname === '/api') {
-        const res = await ipRateLimit(req)
-        if (res.status !== 200) return res
+    // Reset rate limit in 60 seconds
+    const reset = new Date(Date.now() + 60 * 1000);
+    res.setHeader("X-RateLimit-Reset", reset.toUTCString());
 
-        res.headers.set('content-type', 'application/json')
-
-        return new Response(JSON.stringify({ done: true }), {
-            status: 200,
-            headers: res.headers,
-        })
+    if (req.method === "POST") {
+        if (req.headers["x-ratelimit-remaining"] === "0") {
+            if (req.headers["x-ratelimit-reset"] > Date.now()) {
+                res.status(429).send("Rate limit exceeded");
+                return;
+            } else {
+                res.setHeader("X-RateLimit-Remaining", "10");
+                res.setHeader("X-RateLimit-Reset", reset.toUTCString());
+            }
+        }
+        // Update remaining requests
+        res.setHeader("X-RateLimit-Remaining", req.headers["x-ratelimit-remaining"] - 1);
     }
+    next();
 }
