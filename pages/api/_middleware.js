@@ -33,5 +33,5 @@ export default function middleware(req, res, next) {
     })
 
     // Continue
-    next()
+    NextResponse.next()
 }
